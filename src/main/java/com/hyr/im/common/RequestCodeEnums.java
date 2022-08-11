@@ -1,7 +1,10 @@
 package com.hyr.im.common;
 
 public enum RequestCodeEnums {
-    Login(new Byte((byte) 1),"lgoin");
+    LOGIN_REQUEST(new Byte((byte) 1),"login"),
+    LOGIN_RESPONSE(new Byte((byte) 2),"login"),
+    MESSAGE_REQUEST(new Byte((byte) 3),"login"),
+    MESSAGE_RESPONSE(new Byte((byte) 4),"login");
     private Byte code;
     private String describe;
 

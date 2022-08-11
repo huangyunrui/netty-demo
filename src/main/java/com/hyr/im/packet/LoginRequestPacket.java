@@ -1,18 +1,20 @@
 package com.hyr.im.packet;
 
 import com.hyr.im.common.RequestCodeEnums;
+import lombok.Data;
 
-public class LoginPacket extends AbstractPacket{
+@Data
+public class LoginRequestPacket extends AbstractPacket{
     private Integer userId;
     private String password;
     private String username;
 
     @Override
     public Byte getCommand() {
-        return RequestCodeEnums.Login.getCode();
+        return RequestCodeEnums.LOGIN_REQUEST.getCode();
     }
 
-    public LoginPacket(Integer userId, String password, String username) {
+    public LoginRequestPacket(Integer userId, String password, String username) {
         this.userId = userId;
         this.password = password;
         this.username = username;

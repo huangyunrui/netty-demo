@@ -1,8 +1,10 @@
 package com.hyr.im.serializer;
 
-import com.alibaba.fastjson2.JSON;
+
+import com.alibaba.fastjson.JSON;
 
 public class JSONSerializer implements Serializer{
+    public static  Serializer INSTANCE = new JSONSerializer();
     /**
      * @return
      */

@@ -1,7 +1,9 @@
 package com.hyr.im.packet;
 
 
-public abstract class AbstractPacket {
+import java.io.Serializable;
+
+public abstract class AbstractPacket implements Serializable {
     private Byte version = 1;
     public abstract Byte getCommand();
 

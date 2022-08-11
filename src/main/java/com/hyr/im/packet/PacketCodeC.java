@@ -1,13 +1,15 @@
 package com.hyr.im.packet;
 
+import com.hyr.im.serializer.JSONSerializer;
 import com.hyr.im.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
-public class PacketCode {
+public class PacketCodeC {
     private static final int MAGIC_NUMBER = 0x12345678;
-    public ByteBuf encode(AbstractPacket packet){
-        ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+    public static PacketCodeC INSTANCE = new PacketCodeC();
+    public ByteBuf encode(ByteBufAllocator alloc, AbstractPacket packet){
+        ByteBuf byteBuf = alloc.buffer();
         byte[] data = Serializer.DEFAULT.serializer(packet);
 
         byteBuf.writeInt(MAGIC_NUMBER);
@@ -39,10 +41,24 @@ public class PacketCode {
     }
 
     private Serializer getSerializer(byte serializerAlgorithm) {
-        return null;
+        switch (serializerAlgorithm){
+            case 1:
+                return JSONSerializer.INSTANCE;
+        }
+        return JSONSerializer.INSTANCE;
     }
 
     private Class<? extends AbstractPacket> getRequestType(byte command) {
+        switch (command){
+            case 1:
+                return LoginRequestPacket.class;
+            case 2:
+                return LoginResponsePacket.class;
+            case 3:
+                return MessageRequestPacket.class;
+            case 4:
+                return MessageRequestPacket.class;
+        }
         return null;
     }
 }

@@ -5,6 +5,7 @@ import com.hyr.im.handler.PacketEncoder;
 import com.hyr.im.handler.Spliter;
 import com.hyr.im.handler.client.LoginResponseHandler;
 import com.hyr.im.handler.client.MessageResponseHandler;
+import com.hyr.im.packet.LoginRequestPacket;
 import com.hyr.im.packet.MessageRequestPacket;
 import com.hyr.im.packet.PacketCodeC;
 import com.hyr.im.utils.LoginUtils;
@@ -14,6 +15,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+
+import java.util.Scanner;
 
 public class ClientApp {
     public static void main(String[] args) {
@@ -48,18 +51,23 @@ public class ClientApp {
     }
 
     private static void startConsoleThread(Channel channel) {
+        Scanner scanner = new Scanner(System.in);
         new Thread(()->{
             while (!Thread.interrupted()){
-                if (LoginUtils.hasLogin(channel)){
-                    System.out.println("send message");
-                    MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
-                    messageRequestPacket.setMessage("hello");
-                    channel.writeAndFlush(messageRequestPacket);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                if (!LoginUtils.hasLogin(channel)){
+                    System.out.println("请输入用用户名:");
+                    String username = scanner.nextLine();
+                    LoginRequestPacket loginRequestPacket = new LoginRequestPacket(username,"pwd");
+                    channel.writeAndFlush(loginRequestPacket);
+                }else {
+                    System.out.println("请输入接收者:");
+                    String toUserId = scanner.nextLine();
+                    System.out.println("请输入消息:");
+                    String message = scanner.nextLine();
+                    MessageRequestPacket requestPacket = new MessageRequestPacket();
+                    requestPacket.setMessage(message);
+                    requestPacket.setToUserId(toUserId);
+                    channel.writeAndFlush(requestPacket);
                 }
             }
         }).start();

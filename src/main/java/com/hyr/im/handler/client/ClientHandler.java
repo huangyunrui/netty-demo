@@ -11,7 +11,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
             System.out.println("client start login");
-            LoginRequestPacket loginPacket = new LoginRequestPacket(1, "zhangsan","zhangsan");
+            LoginRequestPacket loginPacket = new LoginRequestPacket( "zhangsan","zhangsan");
             ByteBuf buf = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginPacket);
             ctx.channel().writeAndFlush(buf);
 

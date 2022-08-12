@@ -13,4 +13,6 @@ public class MessageRequestPacket extends AbstractPacket{
         return RequestCodeEnums.MESSAGE_REQUEST.getCode();
     }
 
+
+
 }

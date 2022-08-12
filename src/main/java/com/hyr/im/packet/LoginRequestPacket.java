@@ -14,8 +14,7 @@ public class LoginRequestPacket extends AbstractPacket{
         return RequestCodeEnums.LOGIN_REQUEST.getCode();
     }
 
-    public LoginRequestPacket(Integer userId, String password, String username) {
-        this.userId = userId;
+    public LoginRequestPacket(String password, String username) {
         this.password = password;
         this.username = username;
     }

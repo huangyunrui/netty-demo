@@ -12,17 +12,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * 登录响应处理器
  */
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
-
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
-        System.out.println("client start login");
-        LoginRequestPacket loginPacket = new LoginRequestPacket(1, "zhangsan1","zhangsan2");
-        ByteBuf buf = PacketCodeC.INSTANCE.encode(ctx.alloc(), loginPacket);
-        ctx.channel().writeAndFlush(buf);
-
-
-    }
+    
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket packet) throws Exception {
         if (packet.getSuccess()){

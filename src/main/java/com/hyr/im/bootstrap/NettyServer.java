@@ -2,6 +2,7 @@ package com.hyr.im.bootstrap;
 
 import com.hyr.im.handler.*;
 import com.hyr.im.handler.server.AuthHandler;
+import com.hyr.im.handler.server.CreateGroupRequestHandler;
 import com.hyr.im.handler.server.LoginRequestHandler;
 import com.hyr.im.handler.server.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -13,7 +14,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-public class ServerApp {
+public class NettyServer {
     public static void main(String[] args) {
         EventLoopGroup acceptGroup = new NioEventLoopGroup();
         EventLoopGroup workGroup = new NioEventLoopGroup();
@@ -33,6 +34,7 @@ public class ServerApp {
                             socketChannel.pipeline().addLast("loginHandler", new LoginRequestHandler());
                             socketChannel.pipeline().addLast("authHandler", new AuthHandler());
                             socketChannel.pipeline().addLast("message", new MessageRequestHandler());
+                            socketChannel.pipeline().addLast("createGroup", new CreateGroupRequestHandler());
                             socketChannel.pipeline().addLast("encoder", new PacketEncoder());
                         }
                     });

@@ -4,7 +4,9 @@ public enum RequestCodeEnums {
     LOGIN_REQUEST(new Byte((byte) 1),"login"),
     LOGIN_RESPONSE(new Byte((byte) 2),"login"),
     MESSAGE_REQUEST(new Byte((byte) 3),"login"),
-    MESSAGE_RESPONSE(new Byte((byte) 4),"login");
+    MESSAGE_RESPONSE(new Byte((byte) 4),"login"),
+    CREATE_GROUP_REQUEST(new Byte((byte) 5),"login"),
+    CREATE_GROUP_RESPONSE(new Byte((byte) 6),"login");
     private Byte code;
     private String describe;
 

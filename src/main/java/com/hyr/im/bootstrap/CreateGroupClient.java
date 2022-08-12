@@ -10,10 +10,8 @@ import com.hyr.im.handler.client.LoginResponseHandler;
 import com.hyr.im.handler.client.MessageResponseHandler;
 import com.hyr.im.packet.LoginRequestPacket;
 import com.hyr.im.packet.MessageRequestPacket;
-import com.hyr.im.packet.PacketCodeC;
 import com.hyr.im.utils.LoginUtils;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -21,7 +19,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.util.Scanner;
 
-public class ClientApp {
+public class CreateGroupClient {
     public static void main(String[] args) {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
@@ -56,6 +54,6 @@ public class ClientApp {
     }
 
     private static void startConsoleThread(Channel channel) {
-       new ConsoleThread(channel).start();
+        new ConsoleThread(channel).start();
     }
 }

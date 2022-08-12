@@ -71,6 +71,10 @@ public class PacketCodeC {
                 return MessageRequestPacket.class;
             case 4:
                 return MessageResponsePacket.class;
+            case 5:
+                return CreateGroupRequestPacket.class;
+            case 6:
+                return CreateGroupResponsePacket.class;
         }
         return null;
     }

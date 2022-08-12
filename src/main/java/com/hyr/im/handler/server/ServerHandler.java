@@ -1,4 +1,4 @@
-package com.hyr.im.handler;
+package com.hyr.im.handler.server;
 
 import com.hyr.im.packet.*;
 import io.netty.buffer.ByteBuf;
@@ -8,8 +8,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf byteBuf = (ByteBuf) msg;
-        AbstractPacket packet = PacketCodeC.INSTANCE.decode(byteBuf);
+        AbstractPacket packet = (AbstractPacket) msg;
         if (packet instanceof LoginRequestPacket) {
             LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
             if (valid((LoginRequestPacket) packet)) {

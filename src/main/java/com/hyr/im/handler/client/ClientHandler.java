@@ -1,4 +1,4 @@
-package com.hyr.im.handler;
+package com.hyr.im.handler.client;
 
 import com.hyr.im.packet.*;
 import com.hyr.im.utils.LoginUtils;

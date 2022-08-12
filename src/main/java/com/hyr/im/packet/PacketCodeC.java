@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
 public class PacketCodeC {
-    private static final int MAGIC_NUMBER = 0x12345678;
+    public static final int MAGIC_NUMBER = 0x12345678;
     public static PacketCodeC INSTANCE = new PacketCodeC();
     public ByteBuf encode(ByteBufAllocator alloc, AbstractPacket packet){
         ByteBuf byteBuf = alloc.buffer();
@@ -19,6 +19,19 @@ public class PacketCodeC {
         byteBuf.writeInt(data.length);
         byteBuf.writeBytes(data);
 
+        return byteBuf;
+    }
+
+    public ByteBuf encode(ByteBuf byteBuf, AbstractPacket packet){
+        //序列化Java对象
+        byte[] data = Serializer.DEFAULT.serializer(packet);
+        //编码
+        byteBuf.writeInt(MAGIC_NUMBER);
+        byteBuf.writeByte(packet.getVersion());
+        byteBuf.writeByte(Serializer.JSON_SERIALIZER);
+        byteBuf.writeByte(packet.getCommand());
+        byteBuf.writeInt(data.length);
+        byteBuf.writeBytes(data);
         return byteBuf;
     }
 
@@ -57,7 +70,7 @@ public class PacketCodeC {
             case 3:
                 return MessageRequestPacket.class;
             case 4:
-                return MessageRequestPacket.class;
+                return MessageResponsePacket.class;
         }
         return null;
     }

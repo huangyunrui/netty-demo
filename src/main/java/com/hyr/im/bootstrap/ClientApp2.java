@@ -6,16 +6,14 @@ import com.hyr.im.handler.Spliter;
 import com.hyr.im.handler.client.LoginResponseHandler;
 import com.hyr.im.handler.client.MessageResponseHandler;
 import com.hyr.im.packet.MessageRequestPacket;
-import com.hyr.im.packet.PacketCodeC;
 import com.hyr.im.utils.LoginUtils;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-public class ClientApp {
+public class ClientApp2 {
     public static void main(String[] args) {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
@@ -32,11 +30,17 @@ public class ClientApp {
                     socketChannel.pipeline().addLast("messageResponse", new MessageResponseHandler());
                     socketChannel.pipeline().addLast("encoder", new PacketEncoder());                }
             });
+
             final ChannelFuture localhost = bootstrap.connect("localhost", 8888)
                     .addListener(future -> {
                         if (future.isSuccess()){
                             Channel channel = ((ChannelFuture) future).channel();
-                            startConsoleThread(channel);
+//                            startConsoleThread(channel);
+
+                            MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
+                            messageRequestPacket.setMessage("hello");
+                            messageRequestPacket.setToUserId("1660291953645");
+                            channel.writeAndFlush(messageRequestPacket);
                         }
                     });
             localhost.channel().closeFuture().sync();
@@ -54,6 +58,7 @@ public class ClientApp {
                     System.out.println("send message");
                     MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
                     messageRequestPacket.setMessage("hello");
+                    messageRequestPacket.setToUserId("1660290585698");
                     channel.writeAndFlush(messageRequestPacket);
                     try {
                         Thread.sleep(1000);

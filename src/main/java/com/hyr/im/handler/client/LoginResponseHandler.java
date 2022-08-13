@@ -1,10 +1,7 @@
 package com.hyr.im.handler.client;
 
-import com.hyr.im.packet.LoginRequestPacket;
-import com.hyr.im.packet.LoginResponsePacket;
-import com.hyr.im.packet.PacketCodeC;
+import com.hyr.im.packet.response.LoginResponsePacket;
 import com.hyr.im.utils.LoginUtils;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

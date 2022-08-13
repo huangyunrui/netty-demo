@@ -6,7 +6,11 @@ public enum RequestCodeEnums {
     MESSAGE_REQUEST(new Byte((byte) 3),"login"),
     MESSAGE_RESPONSE(new Byte((byte) 4),"login"),
     CREATE_GROUP_REQUEST(new Byte((byte) 5),"login"),
-    CREATE_GROUP_RESPONSE(new Byte((byte) 6),"login");
+    CREATE_GROUP_RESPONSE(new Byte((byte) 6),"login"),
+    JOIN_GROUP_REQUEST(new Byte((byte) 7),"login"),
+    JOIN_GROUP_RESPONSE(new Byte((byte) 8),"login"),
+    LIST_GROUP_MEMBER_REQUEST(new Byte((byte) 9),"login"),
+    LIST_GROUP_MEMBER_RESPONSE(new Byte((byte) 10),"login");
     private Byte code;
     private String describe;
 

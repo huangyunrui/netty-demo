@@ -14,8 +14,11 @@ public class ConsoleCommandManager implements ConsoleCommand{
         consoleCommandMap.put("sendToUser", new SendUserConsoleCommand());
         consoleCommandMap.put("logout", new LogoutConsoleCommand());
         consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
+        consoleCommandMap.put("joinGroup", new JoinGroupConsoleCommand());
+        consoleCommandMap.put("listGroupMember", new ListGroupMemberConsoleCommand());
     }
     public void exec(Scanner scanner, Channel channel){
+        System.out.println("指令集:"+consoleCommandMap.keySet());
         System.out.println("请输入指令:");
         String command = scanner.nextLine();
         final ConsoleCommand consoleCommand = consoleCommandMap.get(command);

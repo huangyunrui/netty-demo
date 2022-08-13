@@ -1,5 +1,7 @@
 package com.hyr.im.packet;
 
+import com.hyr.im.packet.request.*;
+import com.hyr.im.packet.response.*;
 import com.hyr.im.serializer.JSONSerializer;
 import com.hyr.im.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
@@ -75,6 +77,14 @@ public class PacketCodeC {
                 return CreateGroupRequestPacket.class;
             case 6:
                 return CreateGroupResponsePacket.class;
+            case 7:
+                return JoinGroupRequestPacket.class;
+            case 8:
+                return JoinGroupResponsePacket.class;
+            case 9:
+                return ListGroupMemberRequestPacket.class;
+            case 10:
+                return ListGroupMemberResponsePacket.class;
         }
         return null;
     }

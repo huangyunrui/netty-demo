@@ -1,6 +1,6 @@
 package com.hyr.im.command;
 
-import com.hyr.im.packet.LoginRequestPacket;
+import com.hyr.im.packet.request.LoginRequestPacket;
 import io.netty.channel.Channel;
 
 import java.util.Scanner;

@@ -2,8 +2,8 @@ package com.hyr.im.handler.server;
 
 import com.hyr.im.common.Session;
 import com.hyr.im.common.SessionUtils;
-import com.hyr.im.packet.MessageRequestPacket;
-import com.hyr.im.packet.MessageResponsePacket;
+import com.hyr.im.packet.request.MessageRequestPacket;
+import com.hyr.im.packet.response.MessageResponsePacket;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

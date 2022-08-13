@@ -1,28 +1,17 @@
 package com.hyr.im.bootstrap;
 
-import com.hyr.im.command.ConsoleCommandManager;
-import com.hyr.im.command.LoginConsoleCommand;
 import com.hyr.im.handler.PacketDecoder;
 import com.hyr.im.handler.PacketEncoder;
 import com.hyr.im.handler.Spliter;
-import com.hyr.im.handler.client.CreateGroupResponseHandler;
-import com.hyr.im.handler.client.LoginResponseHandler;
-import com.hyr.im.handler.client.MessageResponseHandler;
-import com.hyr.im.packet.LoginRequestPacket;
-import com.hyr.im.packet.MessageRequestPacket;
-import com.hyr.im.packet.PacketCodeC;
-import com.hyr.im.utils.LoginUtils;
+import com.hyr.im.handler.client.*;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-import java.util.Scanner;
-
-public class ClientApp {
-    public static void main(String[] args) {
+public class NettyClient {
+    public void connect(String ip, int port) {
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
@@ -36,11 +25,14 @@ public class ClientApp {
                     socketChannel.pipeline().addLast("decoder", new PacketDecoder());
                     socketChannel.pipeline().addLast("loginResponse", new LoginResponseHandler());
                     socketChannel.pipeline().addLast("createGroup", new CreateGroupResponseHandler());
+                    socketChannel.pipeline().addLast("joinGroup", new JoinGroupResponseHandler());
+                    socketChannel.pipeline().addLast("listGroupMember", new ListGroupMemberResponseHandler());
                     socketChannel.pipeline().addLast("messageResponse", new MessageResponseHandler());
                     socketChannel.pipeline().addLast("encoder", new PacketEncoder());
                 }
             });
-            final ChannelFuture localhost = bootstrap.connect("localhost", 8888)
+
+            final ChannelFuture localhost = bootstrap.connect(ip, port)
                     .addListener(future -> {
                         if (future.isSuccess()){
                             Channel channel = ((ChannelFuture) future).channel();
@@ -56,6 +48,6 @@ public class ClientApp {
     }
 
     private static void startConsoleThread(Channel channel) {
-       new ConsoleThread(channel).start();
+        new ConsoleThread(channel).start();
     }
 }

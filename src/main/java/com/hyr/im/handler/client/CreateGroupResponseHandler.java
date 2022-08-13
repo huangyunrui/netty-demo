@@ -1,7 +1,6 @@
 package com.hyr.im.handler.client;
 
-import com.hyr.im.packet.CreateGroupResponsePacket;
-import com.hyr.im.packet.MessageResponsePacket;
+import com.hyr.im.packet.response.CreateGroupResponsePacket;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -17,7 +16,6 @@ public class CreateGroupResponseHandler extends SimpleChannelInboundHandler<Crea
         }else {
             System.out.println("创建群聊失败");
         }
-
     }
 
 

@@ -2,9 +2,9 @@ package com.hyr.im.handler.server;
 
 
 import com.hyr.im.common.SessionUtils;
-import com.hyr.im.packet.CreateGroupRequestPacket;
+import com.hyr.im.packet.request.CreateGroupRequestPacket;
 
-import com.hyr.im.packet.CreateGroupResponsePacket;
+import com.hyr.im.packet.response.CreateGroupResponsePacket;
 import com.hyr.im.utils.IDUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -43,8 +43,9 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
         responsePacket.setUserNameList(userNameList);
         channelGroup.writeAndFlush(responsePacket);
 
-        System.out.print("创建群聊成功 id:"+ responsePacket.getGroupId());
-        System.out.println(" 群成员为: "+ responsePacket.getUserNameList());
+        SessionUtils.addChannelGroup(responsePacket.getGroupId(), channelGroup);
+
+        System.out.print("创建群聊成功 id:"+ responsePacket.getGroupId()+" 群成员为: "+responsePacket.getUserNameList());
     }
 
 }

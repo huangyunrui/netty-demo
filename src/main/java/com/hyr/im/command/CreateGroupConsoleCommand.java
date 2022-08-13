@@ -1,6 +1,6 @@
 package com.hyr.im.command;
 
-import com.hyr.im.packet.CreateGroupRequestPacket;
+import com.hyr.im.packet.request.CreateGroupRequestPacket;
 import io.netty.channel.Channel;
 
 import java.util.Arrays;

@@ -16,6 +16,7 @@ public class ConsoleCommandManager implements ConsoleCommand{
         consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
         consoleCommandMap.put("joinGroup", new JoinGroupConsoleCommand());
         consoleCommandMap.put("listGroupMember", new ListGroupMemberConsoleCommand());
+        consoleCommandMap.put("sendToGroup", new SendToGroupConsoleCommand());
     }
     public void exec(Scanner scanner, Channel channel){
         System.out.println("指令集:"+consoleCommandMap.keySet());

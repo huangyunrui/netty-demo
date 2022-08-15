@@ -7,6 +7,7 @@ import com.hyr.im.packet.request.CreateGroupRequestPacket;
 import com.hyr.im.packet.response.CreateGroupResponsePacket;
 import com.hyr.im.utils.IDUtils;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -18,7 +19,10 @@ import java.util.List;
 /**
  * 创建群聊
  */
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket packet) throws Exception {

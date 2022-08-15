@@ -5,13 +5,17 @@ import com.hyr.im.common.SessionUtils;
 import com.hyr.im.packet.request.MessageRequestPacket;
 import com.hyr.im.packet.response.MessageResponsePacket;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * 消息发送处理器
  */
+@ChannelHandler.Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+
+    public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket packet) throws Exception {

@@ -2,10 +2,13 @@ package com.hyr.im.handler.server;
 
 import com.hyr.im.common.SessionUtils;
 import com.hyr.im.utils.LoginUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
+    public static final AuthHandler INSTANCE = new AuthHandler();
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (!SessionUtils.hasLogin(ctx.channel())){

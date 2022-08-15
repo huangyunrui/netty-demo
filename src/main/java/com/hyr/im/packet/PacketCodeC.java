@@ -85,6 +85,10 @@ public class PacketCodeC {
                 return ListGroupMemberRequestPacket.class;
             case 10:
                 return ListGroupMemberResponsePacket.class;
+            case 11:
+                return SendToGroupRequestPacket.class;
+            case 12:
+                return SendToGroupResponsePacket.class;
         }
         return null;
     }

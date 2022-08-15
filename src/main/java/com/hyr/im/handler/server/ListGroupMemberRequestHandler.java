@@ -8,6 +8,7 @@ import com.hyr.im.packet.request.JoinGroupRequestPacket;
 import com.hyr.im.packet.request.ListGroupMemberRequestPacket;
 import com.hyr.im.packet.response.ListGroupMemberResponsePacket;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -19,7 +20,10 @@ import java.util.List;
 /**
  * 加入群聊
  */
+@ChannelHandler.Sharable
 public class ListGroupMemberRequestHandler extends SimpleChannelInboundHandler<ListGroupMemberRequestPacket> {
+
+    public static final ListGroupMemberRequestHandler INSTANCE = new ListGroupMemberRequestHandler();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListGroupMemberRequestPacket packet) throws Exception {

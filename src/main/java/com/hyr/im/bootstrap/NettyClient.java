@@ -1,5 +1,6 @@
 package com.hyr.im.bootstrap;
 
+import com.hyr.im.handler.PacketCodecHandler;
 import com.hyr.im.handler.PacketDecoder;
 import com.hyr.im.handler.PacketEncoder;
 import com.hyr.im.handler.Spliter;
@@ -22,13 +23,14 @@ public class NettyClient {
                 @Override
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                     socketChannel.pipeline().addLast("spiter",new Spliter());
-                    socketChannel.pipeline().addLast("decoder", new PacketDecoder());
-                    socketChannel.pipeline().addLast("loginResponse", new LoginResponseHandler());
-                    socketChannel.pipeline().addLast("createGroup", new CreateGroupResponseHandler());
-                    socketChannel.pipeline().addLast("joinGroup", new JoinGroupResponseHandler());
-                    socketChannel.pipeline().addLast("listGroupMember", new ListGroupMemberResponseHandler());
-                    socketChannel.pipeline().addLast("messageResponse", new MessageResponseHandler());
-                    socketChannel.pipeline().addLast("encoder", new PacketEncoder());
+                    socketChannel.pipeline().addLast("packetCodec", PacketCodecHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("loginResponse", LoginResponseHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("createGroup",  CreateGroupResponseHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("joinGroup", JoinGroupResponseHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("listGroupMember", ListGroupMemberResponseHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("groupMessage", GroupMessageResponseHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("messageResponse", MessageResponseHandler.INSTANCE);
+//                    socketChannel.pipeline().addLast("encoder", new PacketEncoder());
                 }
             });
 

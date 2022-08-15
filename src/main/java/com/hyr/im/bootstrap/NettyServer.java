@@ -26,14 +26,16 @@ public class NettyServer {
                             //包偏移量， 报文长度， 包最大长度
 //                            socketChannel.pipeline().addLast("life",new LifeCycleTestHandler());
                             socketChannel.pipeline().addLast("spiter",new Spliter());
-                            socketChannel.pipeline().addLast("decoder", new PacketDecoder());
-                            socketChannel.pipeline().addLast("loginHandler", new LoginRequestHandler());
-                            socketChannel.pipeline().addLast("authHandler", new AuthHandler());
-                            socketChannel.pipeline().addLast("message", new MessageRequestHandler());
-                            socketChannel.pipeline().addLast("createGroup", new CreateGroupRequestHandler());
-                            socketChannel.pipeline().addLast("listGroupMember", new ListGroupMemberRequestHandler());
-                            socketChannel.pipeline().addLast("joinGroup", new JoinGroupRequestHandler());
-                            socketChannel.pipeline().addLast("encoder", new PacketEncoder());
+                            socketChannel.pipeline().addLast("packetCodec", PacketCodecHandler.INSTANCE);
+                            socketChannel.pipeline().addLast("loginHandler", LoginRequestHandler.INSTANCE);
+                            socketChannel.pipeline().addLast("authHandler", AuthHandler.INSTANCE);
+                            socketChannel.pipeline().addLast("imHandler", IMHandler.INSTANCE);
+//                            socketChannel.pipeline().addLast("message", MessageRequestHandler.INSTANCE);
+//                            socketChannel.pipeline().addLast("createGroup", CreateGroupRequestHandler.INSTANCE);
+//                            socketChannel.pipeline().addLast("listGroupMember", ListGroupMemberRequestHandler.INSTANCE);
+//                            socketChannel.pipeline().addLast("joinGroup", JoinGroupRequestHandler.INSTANCE);
+//                            socketChannel.pipeline().addLast("groupMessage", GroupMessageRequestHandler.INSTANCE);
+//                            socketChannel.pipeline().addLast("encoder", new PacketEncoder());
                         }
                     });
             ChannelFuture future = bootstrap.bind(port).sync();

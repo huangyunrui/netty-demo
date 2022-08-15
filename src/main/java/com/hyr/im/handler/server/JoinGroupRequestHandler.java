@@ -1,11 +1,11 @@
 package com.hyr.im.handler.server;
 
 
-
 import com.hyr.im.common.Session;
 import com.hyr.im.common.SessionUtils;
 import com.hyr.im.packet.request.JoinGroupRequestPacket;
 import com.hyr.im.packet.response.JoinGroupResponsePacket;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -14,7 +14,10 @@ import io.netty.channel.group.ChannelGroup;
 /**
  * 加入群聊
  */
+@ChannelHandler.Sharable
 public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGroupRequestPacket> {
+
+    public static final JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequestPacket packet) throws Exception {
@@ -25,16 +28,16 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
         ChannelGroup channelGroup = SessionUtils.getChannelGroup(groupId);
         Session session = SessionUtils.getSession(ctx.channel());
 
-        if (null != channelGroup){
+        if (null != channelGroup) {
             channelGroup.add(ctx.channel());
             responsePacket.setGroupId(groupId);
             responsePacket.setSuccess(true);
             responsePacket.setMessage("ok");
             String userName = session.getUserName();
-            responsePacket.setMessage(userName+" 加入群聊");
+            responsePacket.setMessage(userName + " 加入群聊");
             //通知所有人
             channelGroup.writeAndFlush(responsePacket);
-        }else {
+        } else {
             responsePacket.setGroupId(groupId);
             responsePacket.setSuccess(false);
             responsePacket.setMessage("未找到聊天群");

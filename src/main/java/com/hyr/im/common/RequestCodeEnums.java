@@ -12,7 +12,9 @@ public enum RequestCodeEnums {
     LIST_GROUP_MEMBER_REQUEST(new Byte((byte) 9),"login"),
     LIST_GROUP_MEMBER_RESPONSE(new Byte((byte) 10),"login"),
     SEND_TO_GROUP_REQUEST(new Byte((byte) 11),"login"),
-    SEND_TO_GROUP_RESPONSE(new Byte((byte) 12),"login");
+    SEND_TO_GROUP_RESPONSE(new Byte((byte) 12),"login"),
+    HEART_BEAT_REQUEST(new Byte((byte) 13),"login"),
+    HEART_BEAT_RESPONSE(new Byte((byte) 14),"login");
     private Byte code;
     private String describe;
 

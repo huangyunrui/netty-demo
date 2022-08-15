@@ -89,6 +89,10 @@ public class PacketCodeC {
                 return SendToGroupRequestPacket.class;
             case 12:
                 return SendToGroupResponsePacket.class;
+            case 13:
+                return HeartBeatRequestPacket.class;
+            case 14:
+                return HeartBeatResponsePacket.class;
         }
         return null;
     }

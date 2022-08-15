@@ -25,9 +25,13 @@ public class NettyServer {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             //包偏移量， 报文长度， 包最大长度
 //                            socketChannel.pipeline().addLast("life",new LifeCycleTestHandler());
+                            //空闲检测
+                            socketChannel.pipeline().addLast("idle",new IMIdleStateHandler());
                             socketChannel.pipeline().addLast("spiter",new Spliter());
                             socketChannel.pipeline().addLast("packetCodec", PacketCodecHandler.INSTANCE);
                             socketChannel.pipeline().addLast("loginHandler", LoginRequestHandler.INSTANCE);
+                            socketChannel.pipeline().addLast("heartBeat", HeartBeatRequestHandler.INSTANCE);
+
                             socketChannel.pipeline().addLast("authHandler", AuthHandler.INSTANCE);
                             socketChannel.pipeline().addLast("imHandler", IMHandler.INSTANCE);
 //                            socketChannel.pipeline().addLast("message", MessageRequestHandler.INSTANCE);

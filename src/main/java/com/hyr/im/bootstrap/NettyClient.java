@@ -1,9 +1,6 @@
 package com.hyr.im.bootstrap;
 
-import com.hyr.im.handler.PacketCodecHandler;
-import com.hyr.im.handler.PacketDecoder;
-import com.hyr.im.handler.PacketEncoder;
-import com.hyr.im.handler.Spliter;
+import com.hyr.im.handler.*;
 import com.hyr.im.handler.client.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -22,9 +19,12 @@ public class NettyClient {
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
+                    socketChannel.pipeline().addLast("idleState",new IMIdleStateHandler());
                     socketChannel.pipeline().addLast("spiter",new Spliter());
                     socketChannel.pipeline().addLast("packetCodec", PacketCodecHandler.INSTANCE);
                     socketChannel.pipeline().addLast("loginResponse", LoginResponseHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("heartBeatTimer", HeartBeatTimerHandler.INSTANCE);
+                    socketChannel.pipeline().addLast("heartBeatResponse", HeartBeatResponseHandler.INSTANCE);
                     socketChannel.pipeline().addLast("createGroup",  CreateGroupResponseHandler.INSTANCE);
                     socketChannel.pipeline().addLast("joinGroup", JoinGroupResponseHandler.INSTANCE);
                     socketChannel.pipeline().addLast("listGroupMember", ListGroupMemberResponseHandler.INSTANCE);
